@@ -1,0 +1,31 @@
+# ===================================================================
+# MS-Analíticas - Configuración (MongoDB / Amazon DocumentDB)
+# ===================================================================
+
+spring:
+  application:
+    name: ms-analiticas
+
+  # --- MongoDB / Amazon DocumentDB ---
+  data:
+    mongodb:
+      # --- Desarrollo Local ---
+      uri: mongodb://mongo:mongo@localhost:27017/innovatech_analiticas?authSource=admin
+
+      # --- Producción (Amazon DocumentDB con TLS/SSL) ---
+      # Descomenta las líneas siguientes y comenta la URI de arriba para producción:
+      # uri: mongodb://usuario:password@docdb-cluster.cluster-xxxx.us-east-1.docdb.amazonaws.com:27017/innovatech_analiticas?tls=true&tlsCAFile=/path/to/global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
+
+  # --- Habilitar auditoría de MongoDB (para @CreatedDate) ---
+  mongodb:
+    auto-index-creation: true
+
+# --- Puerto del servidor ---
+server:
+  port: 8084
+
+# --- Logging ---
+logging:
+  level:
+    Innovatech.ms_analiticas: DEBUG
+    org.springframework.data.mongodb: DEBUG

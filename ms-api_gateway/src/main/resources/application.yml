@@ -1,0 +1,82 @@
+# ===================================================================
+# API Gateway (BFF) - Configuración
+# ===================================================================
+
+spring:
+  application:
+    name: ms-api-gateway
+
+  # --- CORS Global ---
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+              - "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+
+  # --- JWT Resource Server ---
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Para desarrollo local, usar una clave simétrica o JWK set URI
+          # En producción, apuntar a un issuer-uri real (Cognito, Keycloak, etc.)
+          issuer-uri: http://localhost:8081
+
+# --- Puerto del servidor ---
+server:
+  port: 8080
+
+# --- Resilience4j - Circuit Breaker ---
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000     # 10 segundos
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+        registerHealthIndicator: true
+    instances:
+      authCircuitBreaker:
+        baseConfig: default
+      proyectosCircuitBreaker:
+        baseConfig: default
+      recursosCircuitBreaker:
+        baseConfig: default
+      analiticasCircuitBreaker:
+        baseConfig: default
+
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 3s
+
+# --- Actuator (exponer métricas de Circuit Breaker) ---
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, circuitbreakers, metrics
+  health:
+    circuitbreakers:
+      enabled: true
+
+# --- Logging ---
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    io.github.resilience4j: DEBUG

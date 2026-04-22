@@ -1,0 +1,9 @@
+Innovatech/ms_analiticas/controller/AnaliticaController.class
+Innovatech/ms_analiticas/entity/ReporteAnalitico.class
+Innovatech/ms_analiticas/service/AnaliticaService.class
+Innovatech/ms_analiticas/entity/KpiProyecto$KpiProyectoBuilder.class
+Innovatech/ms_analiticas/entity/KpiProyecto.class
+Innovatech/ms_analiticas/config/MongoConfig.class
+Innovatech/ms_analiticas/repository/KpiProyectoRepository.class
+Innovatech/ms_analiticas/repository/ReporteAnaliticoRepository.class
+Innovatech/ms_analiticas/entity/ReporteAnalitico$ReporteAnaliticoBuilder.class

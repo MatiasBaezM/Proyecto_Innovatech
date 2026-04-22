@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: Innovatech.ms_recursos_colaboraciones.service.AsignacionServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.754 s -- in Innovatech.ms_recursos_colaboraciones.service.AsignacionServiceTest

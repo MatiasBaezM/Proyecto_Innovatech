@@ -1,0 +1,8 @@
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-analiticas/src/main/java/Innovatech/ms_analiticas/entity/ReporteAnalitico.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-analiticas/src/main/java/Innovatech/ms_analiticas/controller/AnaliticaController.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-analiticas/src/main/java/Innovatech/ms_analiticas/repository/ReporteAnaliticoRepository.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-analiticas/src/main/java/Innovatech/ms_analiticas/entity/KpiProyecto.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-analiticas/src/main/java/Innovatech/ms_analiticas/repository/KpiProyectoRepository.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-analiticas/src/main/java/Innovatech/ms_analiticas/service/AnaliticaService.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-analiticas/src/main/java/Innovatech/ms_analiticas/MsAnaliticasApplication.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-analiticas/src/main/java/Innovatech/ms_analiticas/config/MongoConfig.java

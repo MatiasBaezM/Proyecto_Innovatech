@@ -1,0 +1,71 @@
+# ==============================================================================
+# Kubernetes Deployment - MS Gestión de Proyectos (Amazon EKS)
+# ==============================================================================
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-gestion-proyectos
+  namespace: innovatech
+  labels:
+    app: ms-gestion-proyectos
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ms-gestion-proyectos
+  template:
+    metadata:
+      labels:
+        app: ms-gestion-proyectos
+        version: v1
+    spec:
+      containers:
+        - name: ms-gestion-proyectos
+          image: <AWS_ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/innovatech/ms-gestion-proyectos:latest
+          ports:
+            - containerPort: 8082
+              protocol: TCP
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: innovatech-db-secrets
+                  key: proyectos-db-url
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: innovatech-db-secrets
+                  key: db-username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: innovatech-db-secrets
+                  key: db-password
+            - name: SERVER_PORT
+              value: "8082"
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+      restartPolicy: Always

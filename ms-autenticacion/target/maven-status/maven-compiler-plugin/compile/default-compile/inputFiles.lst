@@ -1,0 +1,12 @@
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/dto/AuthResponse.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/entity/Usuario.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/service/AuthService.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/MsAutenticacionApplication.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/dto/LoginRequest.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/service/JwtService.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/dto/RegisterRequest.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/config/JwtAuthenticationFilter.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/controller/AuthController.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/repository/UsuarioRepository.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/config/SecurityConfig.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-autenticacion/src/main/java/Innovatech/ms_autenticacion/entity/Rol.java

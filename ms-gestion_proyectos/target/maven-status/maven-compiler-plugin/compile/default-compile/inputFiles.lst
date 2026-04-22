@@ -1,0 +1,14 @@
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/service/ProyectoService.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/config/CorsConfig.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/MsGestionProyectosApplication.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/dto/ProyectoDTO.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/factory/TareaFactory.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/repository/ProyectoRepository.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/entity/TareaTecnica.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/entity/Proyecto.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/dto/TareaDTO.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/repository/TareaRepository.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/service/TareaService.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/entity/TareaGestion.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/controller/ProyectoController.java
+/Users/matiasheyersaez/Documents/DuocUc/2026/Semestre 1/Fullstack III/Proyecto_Innovatech/ms-gestion_proyectos/src/main/java/Innovatech/ms_gestion_proyectos/entity/Tarea.java

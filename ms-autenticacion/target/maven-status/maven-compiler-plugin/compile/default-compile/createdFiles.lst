@@ -1,0 +1,13 @@
+Innovatech/ms_autenticacion/service/JwtService.class
+Innovatech/ms_autenticacion/dto/LoginRequest.class
+Innovatech/ms_autenticacion/config/SecurityConfig.class
+Innovatech/ms_autenticacion/entity/Usuario.class
+Innovatech/ms_autenticacion/repository/UsuarioRepository.class
+Innovatech/ms_autenticacion/entity/Rol.class
+Innovatech/ms_autenticacion/dto/RegisterRequest.class
+Innovatech/ms_autenticacion/service/AuthService.class
+Innovatech/ms_autenticacion/entity/Usuario$UsuarioBuilder.class
+Innovatech/ms_autenticacion/controller/AuthController.class
+Innovatech/ms_autenticacion/config/JwtAuthenticationFilter.class
+Innovatech/ms_autenticacion/dto/AuthResponse$AuthResponseBuilder.class
+Innovatech/ms_autenticacion/dto/AuthResponse.class
