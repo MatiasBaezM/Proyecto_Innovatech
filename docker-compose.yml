@@ -1,36 +1,13 @@
-version: '3.8'
-
 services:
-  postgres:
-    image: postgres:15
-    container_name: postgres_db
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - innovatech_network
-
-  mongo:
-    image: mongo:6
-    container_name: mongo_db
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-    networks:
-      - innovatech_network
-
   ms-autenticacion:
     build: ./ms-autenticacion
     container_name: ms-autenticacion
     ports:
       - "8081:8081"
-    depends_on:
-      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=${AWS_RDS_POSTGRES_URL:-jdbc:postgresql://<TU_RDS_ENDPOINT>:5432/innovatech}
+      - SPRING_DATASOURCE_USERNAME=${AWS_RDS_POSTGRES_USER:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${AWS_RDS_POSTGRES_PASSWORD:-password}
     networks:
       - innovatech_network
 
@@ -39,8 +16,10 @@ services:
     container_name: ms-gestion-proyectos
     ports:
       - "8082:8082"
-    depends_on:
-      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=${AWS_RDS_POSTGRES_URL:-jdbc:postgresql://<TU_RDS_ENDPOINT>:5432/innovatech}
+      - SPRING_DATASOURCE_USERNAME=${AWS_RDS_POSTGRES_USER:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${AWS_RDS_POSTGRES_PASSWORD:-password}
     networks:
       - innovatech_network
 
@@ -49,8 +28,10 @@ services:
     container_name: ms-recursos-colaboraciones
     ports:
       - "8083:8083"
-    depends_on:
-      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=${AWS_RDS_POSTGRES_URL:-jdbc:postgresql://<TU_RDS_ENDPOINT>:5432/innovatech}
+      - SPRING_DATASOURCE_USERNAME=${AWS_RDS_POSTGRES_USER:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${AWS_RDS_POSTGRES_PASSWORD:-password}
     networks:
       - innovatech_network
 
@@ -59,8 +40,8 @@ services:
     container_name: ms-analiticas
     ports:
       - "8084:8084"
-    depends_on:
-      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=${AWS_MONGO_URI:-mongodb://<TU_MONGO_ENDPOINT>:27017/analiticas}
     networks:
       - innovatech_network
 
@@ -76,10 +57,6 @@ services:
       - ms-analiticas
     networks:
       - innovatech_network
-
-volumes:
-  postgres_data:
-  mongo_data:
 
 networks:
   innovatech_network:
