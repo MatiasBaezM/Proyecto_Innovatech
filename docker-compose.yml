@@ -1,139 +1,63 @@
-# ==============================================================================
-# Docker Compose - Innovatech Solutions (Desarrollo Local)
-# Uso: docker-compose up -d
-# ==============================================================================
-
-version: '3.8'
-
 services:
-
-  # --- PostgreSQL (para ms-autenticacion, ms-proyectos, ms-recursos) ---
-  postgres:
-    image: postgres:16-alpine
-    container_name: innovatech-postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_MULTIPLE_DATABASES: innovatech_auth,innovatech_proyectos,innovatech_recursos
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init-databases.sh:/docker-entrypoint-initdb.d/init-databases.sh
-    networks:
-      - innovatech-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # --- MongoDB (para ms-analiticas) ---
-  mongodb:
-    image: mongo:7.0
-    container_name: innovatech-mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo
-      MONGO_INITDB_ROOT_PASSWORD: mongo
-      MONGO_INITDB_DATABASE: innovatech_analiticas
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    networks:
-      - innovatech-network
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # --- MS Gestión de Proyectos ---
-  ms-proyectos:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        MODULE: ms-gestion_proyectos
-    container_name: innovatech-ms-proyectos
-    ports:
-      - "8082:8082"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/innovatech_proyectos
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SERVER_PORT: 8082
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - innovatech-network
-
-  # --- MS Autenticación ---
   ms-autenticacion:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        MODULE: ms-autenticacion
-    container_name: innovatech-ms-autenticacion
+    build: ./ms-autenticacion
+    container_name: ms-autenticacion
     ports:
       - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/innovatech_auth
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SERVER_PORT: 8081
-    depends_on:
-      postgres:
-        condition: service_healthy
+      - SPRING_DATASOURCE_URL=${AWS_RDS_POSTGRES_URL:-jdbc:postgresql://<TU_RDS_ENDPOINT>:5432/innovatech}
+      - SPRING_DATASOURCE_USERNAME=${AWS_RDS_POSTGRES_USER:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${AWS_RDS_POSTGRES_PASSWORD:-password}
     networks:
-      - innovatech-network
+      - innovatech_network
 
-  # --- MS Recursos y Colaboraciones ---
-  ms-recursos:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        MODULE: ms-recursos_colaboraciones
-    container_name: innovatech-ms-recursos
+  ms-gestion-proyectos:
+    build: ./ms-gestion_proyectos
+    container_name: ms-gestion-proyectos
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=${AWS_RDS_POSTGRES_URL:-jdbc:postgresql://<TU_RDS_ENDPOINT>:5432/innovatech}
+      - SPRING_DATASOURCE_USERNAME=${AWS_RDS_POSTGRES_USER:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${AWS_RDS_POSTGRES_PASSWORD:-password}
+    networks:
+      - innovatech_network
+
+  ms-recursos-colaboraciones:
+    build: ./ms-recursos_colaboraciones
+    container_name: ms-recursos-colaboraciones
     ports:
       - "8083:8083"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/innovatech_recursos
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SERVER_PORT: 8083
-    depends_on:
-      postgres:
-        condition: service_healthy
+      - SPRING_DATASOURCE_URL=${AWS_RDS_POSTGRES_URL:-jdbc:postgresql://<TU_RDS_ENDPOINT>:5432/innovatech}
+      - SPRING_DATASOURCE_USERNAME=${AWS_RDS_POSTGRES_USER:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${AWS_RDS_POSTGRES_PASSWORD:-password}
     networks:
-      - innovatech-network
+      - innovatech_network
 
-  # --- MS Analíticas ---
   ms-analiticas:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        MODULE: ms-analiticas
-    container_name: innovatech-ms-analiticas
+    build: ./ms-analiticas
+    container_name: ms-analiticas
     ports:
       - "8084:8084"
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://mongo:mongo@mongodb:27017/innovatech_analiticas?authSource=admin
-      SERVER_PORT: 8084
-    depends_on:
-      mongodb:
-        condition: service_healthy
+      - SPRING_DATA_MONGODB_URI=${AWS_MONGO_URI:-mongodb://<TU_MONGO_ENDPOINT>:27017/analiticas}
     networks:
-      - innovatech-network
+      - innovatech_network
 
-volumes:
-  postgres_data:
-  mongodb_data:
+  ms-api-gateway:
+    build: ./ms-api_gateway
+    container_name: ms-api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ms-autenticacion
+      - ms-gestion-proyectos
+      - ms-recursos-colaboraciones
+      - ms-analiticas
+    networks:
+      - innovatech_network
 
 networks:
-  innovatech-network:
+  innovatech_network:
     driver: bridge

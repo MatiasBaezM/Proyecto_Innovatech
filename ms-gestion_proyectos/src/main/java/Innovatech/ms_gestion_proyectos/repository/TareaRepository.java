@@ -1,17 +1,12 @@
 package Innovatech.ms_gestion_proyectos.repository;
 
-import Innovatech.ms_gestion_proyectos.entity.Tarea;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+// Simulación de entidad Tarea (debe existir en el paquete model)
+// import Innovatech.ms_gestion_proyectos.model.Tarea;
 
-@Repository
-public interface TareaRepository extends JpaRepository<Tarea, Long> {
-
-    List<Tarea> findByProyectoId(Long proyectoId);
-
-    List<Tarea> findByProyectoIdAndEstado(Long proyectoId, Tarea.EstadoTarea estado);
-
-    long countByProyectoId(Long proyectoId);
+// @Repository
+public interface TareaRepository { // extends JpaRepository<Object, Long> {
+    // Aquí puedes añadir métodos de búsqueda personalizados como findByProyectoId
 }

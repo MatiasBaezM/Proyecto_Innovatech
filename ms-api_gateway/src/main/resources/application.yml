@@ -1,82 +1,49 @@
-# ===================================================================
-# API Gateway (BFF) - Configuración
-# ===================================================================
-
 spring:
   application:
     name: ms-api-gateway
-
-  # --- CORS Global ---
   cloud:
     gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins:
-              - "http://localhost:3000"
-              - "http://localhost:5173"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - PATCH
-              - DELETE
-              - OPTIONS
-            allowedHeaders: "*"
-            allowCredentials: true
+      routes:
+        - id: auth-service
+          uri: http://ms-autenticacion:8081
+          predicates:
+            - Path=/auth/**
+        - id: proyectos-service
+          uri: http://ms-gestion-proyectos:8082
+          predicates:
+            - Path=/proyectos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: proyectosCircuitBreaker
+                fallbackUri: forward:/fallback/proyectos
+        - id: recursos-service
+          uri: http://ms-recursos-colaboraciones:8083
+          predicates:
+            - Path=/recursos/**
+        - id: analiticas-service
+          uri: http://ms-analiticas:8084
+          predicates:
+            - Path=/analiticas/**
 
-  # --- JWT Resource Server ---
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          # Para desarrollo local, usar una clave simétrica o JWK set URI
-          # En producción, apuntar a un issuer-uri real (Cognito, Keycloak, etc.)
-          issuer-uri: http://localhost:8081
-
-# --- Puerto del servidor ---
 server:
   port: 8080
 
-# --- Resilience4j - Circuit Breaker ---
 resilience4j:
   circuitbreaker:
     configs:
       default:
+        registerHealthIndicator: true
         slidingWindowSize: 10
         minimumNumberOfCalls: 5
-        failureRateThreshold: 50
-        waitDurationInOpenState: 10000     # 10 segundos
         permittedNumberOfCallsInHalfOpenState: 3
-        slidingWindowType: COUNT_BASED
-        registerHealthIndicator: true
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
     instances:
-      authCircuitBreaker:
-        baseConfig: default
       proyectosCircuitBreaker:
         baseConfig: default
-      recursosCircuitBreaker:
-        baseConfig: default
-      analiticasCircuitBreaker:
-        baseConfig: default
 
-  timelimiter:
-    configs:
-      default:
-        timeoutDuration: 3s
-
-# --- Actuator (exponer métricas de Circuit Breaker) ---
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, circuitbreakers, metrics
-  health:
-    circuitbreakers:
-      enabled: true
-
-# --- Logging ---
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    io.github.resilience4j: DEBUG
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
