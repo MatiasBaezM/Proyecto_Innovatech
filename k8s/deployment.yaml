@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        image: innovatech/api-gateway:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gestion-proyectos-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gestion-proyectos
+  template:
+    metadata:
+      labels:
+        app: gestion-proyectos
+    spec:
+      containers:
+      - name: gestion-proyectos
+        image: innovatech/gestion-proyectos:latest
+        ports:
+        - containerPort: 8082
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:postgresql://postgres-service:5432/proyectos_db"

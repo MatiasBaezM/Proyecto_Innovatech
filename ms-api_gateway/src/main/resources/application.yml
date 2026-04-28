@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: ms-api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: http://ms-autenticacion:8081
+          predicates:
+            - Path=/auth/**
+        - id: proyectos-service
+          uri: http://ms-gestion-proyectos:8082
+          predicates:
+            - Path=/proyectos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: proyectosCircuitBreaker
+                fallbackUri: forward:/fallback/proyectos
+        - id: recursos-service
+          uri: http://ms-recursos-colaboraciones:8083
+          predicates:
+            - Path=/recursos/**
+        - id: analiticas-service
+          uri: http://ms-analiticas:8084
+          predicates:
+            - Path=/analiticas/**
+
+server:
+  port: 8080
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+    instances:
+      proyectosCircuitBreaker:
+        baseConfig: default
+
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970

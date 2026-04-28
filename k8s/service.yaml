@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: api-gateway
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gestion-proyectos-service
+spec:
+  type: ClusterIP
+  selector:
+    app: gestion-proyectos
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
